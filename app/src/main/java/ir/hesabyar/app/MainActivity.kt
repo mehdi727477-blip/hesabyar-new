@@ -67,7 +67,7 @@ class MainActivity : Activity() {
         val balanceCard = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; setPadding(dp(22), dp(21), dp(22), dp(22))
             background = GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                intArrayOf(FinanceTheme.dark(this), FinanceTheme.primary(this))).apply { cornerRadius = dp(24).toFloat() }
+                intArrayOf(FinanceTheme.dark(this@MainActivity), FinanceTheme.primary(this@MainActivity))).apply { cornerRadius = dp(24).toFloat() }
             elevation = dp(4).toFloat()
         }
         val balanceHeader = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
@@ -90,7 +90,7 @@ class MainActivity : Activity() {
             text = "＋    ثبت تراکنش جدید"; textSize = 16f; isAllCaps = false
             setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD
             background = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                intArrayOf(FinanceTheme.dark(this), FinanceTheme.primary(this))).apply { cornerRadius = dp(16).toFloat() }
+                intArrayOf(FinanceTheme.dark(this@MainActivity), FinanceTheme.primary(this@MainActivity))).apply { cornerRadius = dp(16).toFloat() }
             elevation = dp(2).toFloat()
             setOnClickListener { startActivity(Intent(this@MainActivity, AddTransactionActivity::class.java)) }
         }
@@ -104,13 +104,13 @@ class MainActivity : Activity() {
             }
             quickActions.addView(button, LinearLayout.LayoutParams(0, dp(48), 1f).apply { marginEnd = dp(4); marginStart = dp(4) })
         }
-        quickAction("＋ ثبت واریز", "واریز", FinanceTheme.tint(this))
+        quickAction("＋ ثبت واریز", "واریز", FinanceTheme.tint(this@MainActivity))
         quickAction("− ثبت هزینه", "پرداخت/برداشت", Color.rgb(255, 239, 240))
         quickActions.addView(Button(this).apply { text = "▥ گزارش"; textSize = 12f; isAllCaps = false; setTextColor(FinanceTheme.primary(this@MainActivity)); background = shape(Color.WHITE, 14, Color.rgb(222,231,242)); setOnClickListener { startActivity(Intent(this@MainActivity, ReportsActivity::class.java)) } }, LinearLayout.LayoutParams(0, dp(48), 1f).apply { marginStart = dp(4); marginEnd = dp(4) })
         content.addView(quickActions, params(bottom = 14))
         val overlay = Button(this).apply {
             text = "◉   ثبت سریع روی برنامه‌های دیگر"; textSize = 14f; isAllCaps = false
-            setTextColor(FinanceTheme.primary(this)); background = shape(Color.WHITE, 16, Color.rgb(220, 230, 241))
+            setTextColor(FinanceTheme.primary(this@MainActivity)); background = shape(Color.WHITE, 16, Color.rgb(220, 230, 241))
             setOnClickListener {
                 if (android.provider.Settings.canDrawOverlays(this@MainActivity)) startService(Intent(this@MainActivity, QuickEntryOverlayService::class.java))
                 else startActivity(Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, android.net.Uri.parse("package:$packageName")))
@@ -166,9 +166,9 @@ class MainActivity : Activity() {
                 text = label
                 textSize = 11f
                 gravity = Gravity.CENTER
-                setTextColor(if (selected) FinanceTheme.primary(this) else muted)
+                setTextColor(if (selected) FinanceTheme.primary(this@MainActivity) else muted)
                 setPadding(dp(4), dp(8), dp(4), dp(8))
-                background = if (selected) shape(FinanceTheme.tint(this), 12) else shape(Color.WHITE, 12)
+                background = if (selected) shape(FinanceTheme.tint(this@MainActivity), 12) else shape(Color.WHITE, 12)
                 setOnClickListener { if (!selected) startActivity(Intent(this@MainActivity, target)) }
             }
             nav.addView(b, LinearLayout.LayoutParams(0, dp(44), 1f))
